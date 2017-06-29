@@ -3,7 +3,7 @@ package epub
 import (
 	"errors"
 	"github.com/google/uuid"
-	"github.com/jiangmitiao/books/utils"
+	"github.com/jiangmitiao/ebook-go/utils"
 	"io/ioutil"
 	"os"
 	"path"

@@ -2,8 +2,8 @@ package books
 
 import (
 	"fmt"
-	"github.com/jiangmitiao/books/epub"
-	"github.com/jiangmitiao/books/mobi"
+	"github.com/jiangmitiao/ebook-go/epub"
+	"github.com/jiangmitiao/ebook-go/mobi"
 	"strconv"
 )
 
