@@ -28,6 +28,7 @@ type Ebook interface {
 func GetEBook(fullpathname string) Ebook {
 	book := epub.NewEpub(fullpathname)
 	if err := book.Parse(); err == nil {
+		book.Close()
 		return book
 	} else {
 		//fmt.Println(err)
@@ -35,6 +36,7 @@ func GetEBook(fullpathname string) Ebook {
 
 	book1 := mobi.NewMobi(fullpathname)
 	if err := book1.Parse(); err == nil {
+		book1.Close()
 		return book1
 	} else {
 		//fmt.Println(err)
