@@ -17,6 +17,7 @@ func TestPDBHeader_Parse(t *testing.T) {
 	header := NewPDBHeader()
 	//b, _ := ioutil.ReadFile("../tmp/grdls.mobi")
 	b, _ := ioutil.ReadFile("../tmp/zcdz.mobi")
+	b, _ = ioutil.ReadFile("../tmp/wms.mobi")
 	//b,_ :=ioutil.ReadFile("/home/gavin/Calibre 书库/Wang Ceng Qi/Shou Jie (3)/sj.mobi")
 	//b, _ := ioutil.ReadFile("../tmp/st1.azw3")
 	fmt.Println("file size : "+strconv.Itoa(len(b)))
