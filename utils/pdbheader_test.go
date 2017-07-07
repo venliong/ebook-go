@@ -7,9 +7,9 @@ import (
 	_ "github.com/jiangmitiao/ebook-go/utils/lz77"
 	"io"
 	"io/ioutil"
+	"strconv"
 	"testing"
 	"unicode/utf8"
-	"strconv"
 )
 
 func TestPDBHeader_Parse(t *testing.T) {
@@ -20,18 +20,17 @@ func TestPDBHeader_Parse(t *testing.T) {
 	b, _ = ioutil.ReadFile("../tmp/wms.mobi")
 	//b,_ :=ioutil.ReadFile("/home/gavin/Calibre 书库/Wang Ceng Qi/Shou Jie (3)/sj.mobi")
 	//b, _ := ioutil.ReadFile("../tmp/st1.azw3")
-	fmt.Println("file size : "+strconv.Itoa(len(b)))
+	fmt.Println("file size : " + strconv.Itoa(len(b)))
 	reader := bytes.NewReader(b)
 	header.Parse(reader)
 
 	var tmp = to32Byte(header.Name)
-	fmt.Println("header name :"+string(tmp))
-	fmt.Println("record nums ",strconv.Itoa(int(header.GetNumRecords())))
-	fmt.Println("attributes ",header.GetAttributesMean(),header.GetAttributes())
-	fmt.Println("file version ",header.Version)
-	fmt.Println("CreationDate",header.CreationDate)
-	fmt.Println("ModificationDate",header.ModificationDate)
-
+	fmt.Println("header name :" + string(tmp))
+	fmt.Println("record nums ", strconv.Itoa(int(header.GetNumRecords())))
+	fmt.Println("attributes ", header.GetAttributesMean(), header.GetAttributes())
+	fmt.Println("file version ", header.Version)
+	fmt.Println("CreationDate", header.CreationDate)
+	fmt.Println("ModificationDate", header.ModificationDate)
 
 	for _, value := range header.RecordInfos {
 		fmt.Print(value.GetUniqueID())

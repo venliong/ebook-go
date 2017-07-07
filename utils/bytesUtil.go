@@ -73,10 +73,10 @@ func byte2int64(b []byte) int64 {
 	return result
 }
 
-func to32Byte(b [32]byte )[]byte  {
-	var tmp = make([]byte,32)
-	for _,value :=range b {
-		tmp = append(tmp,value)
+func to32Byte(b [32]byte) []byte {
+	var tmp = make([]byte, 32)
+	for _, value := range b {
+		tmp = append(tmp, value)
 	}
 	return tmp
 }

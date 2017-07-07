@@ -37,7 +37,6 @@ func init() {
 	CODETYPESTR[524] = "language"
 	CODETYPESTR[525] = "对齐"
 
-
 	CODETYPEADDR[121] = "KF8 BOUNDARY Offset"
 	CODETYPEADDR[125] = "count of resources"
 	CODETYPEADDR[131] = "UnknownADDR"
@@ -143,11 +142,11 @@ func (record *EXTHRecord) Data() string {
 		case 101:
 			return "calibre mock Linux kindlegen 2.0 期刊"
 		default:
-			return strconv.Itoa(int(tmp))	
+			return strconv.Itoa(int(tmp))
 		}
-		
+
 	}
-	
+
 	return strconv.Itoa(int(record.RecordType))
 	//return string(record.RecordData)
 }

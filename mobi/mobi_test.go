@@ -1,9 +1,9 @@
 package mobi
 
 import (
-	"testing"
 	"fmt"
 	_ "io/ioutil"
+	"testing"
 )
 
 func TestMobiBook_Parse(t *testing.T) {

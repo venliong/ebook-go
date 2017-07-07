@@ -139,7 +139,7 @@ func (header *PDBHeader) GetAttributes() int16 {
 	return header.Attributes
 }
 
-func (header *PDBHeader)GetAttributesMean()string  {
+func (header *PDBHeader) GetAttributesMean() string {
 	//0x0002 Read-Only
 	//0x0004 Dirty AppInfoArea
 	//0x0008 Backup this database (i.e. no conduit exists)
