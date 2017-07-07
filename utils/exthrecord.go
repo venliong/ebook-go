@@ -11,6 +11,7 @@ var (
 	CODETYPESTR  = make(map[uint32]string)
 	CODETYPEINT  = make(map[uint32]string)
 	CODETYPEADDR = make(map[uint32]string)
+	CODETYPETRAN = make(map[uint32]string)
 )
 
 func init() {
@@ -23,16 +24,35 @@ func init() {
 	CODETYPESTR[108] = "builder"
 	CODETYPESTR[109] = "rights"
 	CODETYPESTR[113] = "asin"
-	CODETYPESTR[503] = "title"
-	CODETYPESTR[504] = "asin"
+	CODETYPESTR[117] = "adult"
 	CODETYPESTR[118] = "retail price"
 	CODETYPESTR[119] = "retail price currency"
+	CODETYPESTR[129] = "KF8 cover URI"
 	CODETYPESTR[200] = "dictionary short name"
-	CODETYPESTR[501] = "cdetype"
 
+	CODETYPESTR[300] = "fontsignature"
+	CODETYPESTR[501] = "cdetype"
+	CODETYPESTR[503] = "title"
+	CODETYPESTR[504] = "asin"
+	CODETYPESTR[524] = "language"
+	CODETYPESTR[525] = "对齐"
+
+
+	CODETYPEADDR[121] = "KF8 BOUNDARY Offset"
+	CODETYPEADDR[125] = "count of resources"
+	CODETYPEADDR[131] = "UnknownADDR"
 	CODETYPEADDR[201] = "coveroffset"
 	CODETYPEADDR[202] = "thumboffset"
+	CODETYPEADDR[203] = "hasfakecover"
+	CODETYPEADDR[205] = "Creator Major Version"
+	CODETYPEADDR[206] = "Creator Minor Version"
+	CODETYPEADDR[207] = "Creator Build Number"
+
 	CODETYPEINT[404] = "text to speech"
+
+	CODETYPETRAN[535] = "Creator Build Number"
+	CODETYPETRAN[204] = "Creator Software"
+
 }
 
 type EXTHRecord struct {
@@ -71,6 +91,10 @@ func (record *EXTHRecord) Type() string {
 	if value, has := CODETYPEADDR[record.RecordType]; has {
 		return value
 	}
+
+	if value, has := CODETYPETRAN[record.RecordType]; has {
+		return value
+	}
 	return strconv.Itoa(int(record.RecordType))
 }
 
@@ -94,6 +118,36 @@ func (record *EXTHRecord) Data() string {
 		binary.Read(bytes.NewReader(record.RecordData), binary.BigEndian, &tmp)
 		return strconv.Itoa(int(tmp))
 	}
+
+	if _, has := CODETYPETRAN[record.RecordType]; has {
+		if record.RecordType == 535 {
+			return "a build number of Kindlegen 2.7"
+		}
+		var tmp int32
+		binary.Read(bytes.NewReader(record.RecordData), binary.BigEndian, &tmp)
+		switch tmp {
+		case 1:
+			return "mobigen"
+		case 2:
+			return "Mobipocket Creator"
+		case 200:
+			return "kindlegen (Windows)"
+		case 201:
+			return "kindlegen (Linux)"
+		case 202:
+			return "kindlegen (Mac)"
+		case 33307:
+			return "calibre mock Linux kindlegen 1.2"
+		case 0:
+			return "calibre mock Linux kindlegen 2.0 期刊"
+		case 101:
+			return "calibre mock Linux kindlegen 2.0 期刊"
+		default:
+			return strconv.Itoa(int(tmp))	
+		}
+		
+	}
+	
 	return strconv.Itoa(int(record.RecordType))
 	//return string(record.RecordData)
 }

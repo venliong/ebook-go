@@ -72,3 +72,11 @@ func byte2int64(b []byte) int64 {
 	binary.Read(bytes.NewReader(bts), binary.BigEndian, &result)
 	return result
 }
+
+func to32Byte(b [32]byte )[]byte  {
+	var tmp = make([]byte,32)
+	for _,value :=range b {
+		tmp = append(tmp,value)
+	}
+	return tmp
+}

@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"testing"
 	"unicode/utf8"
+	"strconv"
 )
 
 func TestPDBHeader_Parse(t *testing.T) {
@@ -18,9 +19,19 @@ func TestPDBHeader_Parse(t *testing.T) {
 	b, _ := ioutil.ReadFile("../tmp/zcdz.mobi")
 	//b,_ :=ioutil.ReadFile("/home/gavin/Calibre 书库/Wang Ceng Qi/Shou Jie (3)/sj.mobi")
 	//b, _ := ioutil.ReadFile("../tmp/st1.azw3")
+	fmt.Println("file size : "+strconv.Itoa(len(b)))
 	reader := bytes.NewReader(b)
 	header.Parse(reader)
-	fmt.Println(header.GetNumRecords())
+
+	var tmp = to32Byte(header.Name)
+	fmt.Println("header name :"+string(tmp))
+	fmt.Println("record nums ",strconv.Itoa(int(header.GetNumRecords())))
+	fmt.Println("attributes ",header.GetAttributesMean(),header.GetAttributes())
+	fmt.Println("file version ",header.Version)
+	fmt.Println("CreationDate",header.CreationDate)
+	fmt.Println("ModificationDate",header.ModificationDate)
+
+
 	for _, value := range header.RecordInfos {
 		fmt.Print(value.GetUniqueID())
 	}
@@ -29,7 +40,7 @@ func TestPDBHeader_Parse(t *testing.T) {
 
 	start, offset := header.GetRecord(1)
 	fmt.Println("start ", start, "offset", offset)
-	tmp := make([]byte, offset)
+	tmp = make([]byte, offset)
 	reader.Seek(int64(start), io.SeekStart)
 	reader.Read(tmp)
 	fmt.Println(utf8.ValidString(string(tmp)))

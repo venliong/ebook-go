@@ -32,7 +32,7 @@ func (meta *MobiMeta) Parse(b []byte) error {
 		if err = meta.MOBIHeader.Parse(reader, int64(start), int(offset)); err == nil {
 			if meta.MOBIHeader.FirstImageIndex > 0 && int(meta.MOBIHeader.FirstImageIndex) < len(meta.PDBHeader.RecordInfos) {
 				//has cover
-				start, offset := meta.PDBHeader.GetRecord(1)
+				start, offset := meta.PDBHeader.GetRecord(int(meta.MOBIHeader.FirstImageIndex))
 				tmp := make([]byte, offset)
 				reader.Seek(int64(start), io.SeekStart)
 				reader.Read(tmp)

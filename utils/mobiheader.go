@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"io"
 	"strconv"
+	//"fmt"
 )
 
 type MOBIHeader struct {
@@ -144,8 +145,18 @@ func (header *MOBIHeader) Parse(reader *bytes.Reader, start int64, mobiHeaderSiz
 
 	var exthExists = (header.ExthFlags & 0x40) != 0
 	if exthExists {
+		var exthStart int64 = start+248
+		for  exthStart < start+268 {
+			reader.Seek(exthStart,io.SeekStart)
+			binary.Read(reader, binary.BigEndian, &header.Identifier)
+			if header.Identifier[0] != 69 || header.Identifier[1] != 88 || header.Identifier[2] != 84 || header.Identifier[3] != 72 {
+				exthStart++
+			}else {
+				break
+			}
+		}
 		header.EXTHHeader = NewEXTHHeader()
-		if err := header.EXTHHeader.Parse(reader, start+248); err != nil {
+		if err := header.EXTHHeader.Parse(reader, exthStart); err != nil {
 			return err
 		}
 	}

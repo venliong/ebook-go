@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"io"
+	//"fmt"
 )
 
 type EXTHHeader struct {
@@ -24,6 +25,17 @@ func NewEXTHHeader() *EXTHHeader {
 func (header *EXTHHeader) Parse(reader *bytes.Reader, start int64) error {
 	reader.Seek(start, io.SeekStart)
 	binary.Read(reader, binary.BigEndian, &header.Identifier)
+	//var tmp int64 = 0
+	//for  tmp < int64(reader.Len()) {
+	//	reader.Seek(tmp,io.SeekStart)
+	//	binary.Read(reader, binary.BigEndian, &header.Identifier)
+	//	if header.Identifier[0] != 69 || header.Identifier[1] != 88 || header.Identifier[2] != 84 || header.Identifier[3] != 72 {
+	//		tmp++
+	//	}else {
+	//		fmt.Println(tmp)
+	//		return errors.New("Expected to find EXTH header identifier EXTH but got something else instead")
+	//	}
+	//}
 	if header.Identifier[0] != 69 || header.Identifier[1] != 88 || header.Identifier[2] != 84 || header.Identifier[3] != 72 {
 		return errors.New("Expected to find EXTH header identifier EXTH but got something else instead")
 	}

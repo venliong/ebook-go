@@ -139,6 +139,31 @@ func (header *PDBHeader) GetAttributes() int16 {
 	return header.Attributes
 }
 
+func (header *PDBHeader)GetAttributesMean()string  {
+	//0x0002 Read-Only
+	//0x0004 Dirty AppInfoArea
+	//0x0008 Backup this database (i.e. no conduit exists)
+	//0x0010 (16 decimal) Okay to install newer over existing copy, if present on PalmPilot
+	//0x0020 (32 decimal) Force the PalmPilot to reset after this database is installed
+	//0x0040 (64 decimal) Don't allow copy of file to be beamed to other Pilot.
+	switch header.Attributes {
+	case 0x0002:
+		return "Read-Only"
+	case 0x0004:
+		return "Dirty AppInfoArea"
+	case 0x0008:
+		return "Backup this database"
+	case 0x0010:
+		return "(16 decimal) Okay to install newer over existing copy, if present on PalmPilot"
+	case 0x0020:
+		return "0x0020 (32 decimal) Force the PalmPilot to reset after this database is installed"
+	case 0x0040:
+		return "(64 decimal) Don't allow copy of file to be beamed to other Pilot."
+	default:
+		return "unknow mean"
+	}
+}
+
 func (header *PDBHeader) Size() int {
 	return 80 + len(header.RecordInfos)*8
 }
