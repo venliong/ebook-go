@@ -3,7 +3,7 @@ package utils
 import (
 	"bytes"
 	"fmt"
-	"github.com/jiangmitiao/books/utils/lz77"
+	"github.com/jiangmitiao/ebook-go/utils/lz77"
 	"io"
 	"io/ioutil"
 	"testing"

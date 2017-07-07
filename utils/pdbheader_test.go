@@ -3,8 +3,8 @@ package utils
 import (
 	"bytes"
 	"fmt"
-	"github.com/jiangmitiao/books/utils/lz77"
-	_ "github.com/jiangmitiao/books/utils/lz77"
+	"github.com/jiangmitiao/ebook-go/utils/lz77"
+	_ "github.com/jiangmitiao/ebook-go/utils/lz77"
 	"io"
 	"io/ioutil"
 	"testing"
@@ -14,7 +14,8 @@ import (
 func TestPDBHeader_Parse(t *testing.T) {
 	fmt.Println(t.Name())
 	header := NewPDBHeader()
-	b, _ := ioutil.ReadFile("../tmp/grdls.mobi")
+	//b, _ := ioutil.ReadFile("../tmp/grdls.mobi")
+	b, _ := ioutil.ReadFile("../tmp/zcdz.mobi")
 	//b,_ :=ioutil.ReadFile("/home/gavin/Calibre 书库/Wang Ceng Qi/Shou Jie (3)/sj.mobi")
 	//b, _ := ioutil.ReadFile("../tmp/st1.azw3")
 	reader := bytes.NewReader(b)
